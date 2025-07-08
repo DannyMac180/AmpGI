@@ -1,3 +1,4 @@
+# AmpGI - Amp General Intelligence Extension Plan
 Transform Amp into a general-purpose agent through end-user extensibility using MCP servers and configuration.
 
 ## Vision
@@ -65,15 +66,25 @@ S --> E
 
   
 
-## Core Strategy: MCP-Based Extension Ecosystem
+## Core Strategy: Leverage Existing MCP Server Ecosystem
 
   
 
-**Key Insight:** Amp already has the perfect architecture for this via MCP servers. Users can extend Amp by installing and configuring MCP servers without touching Amp's source code.
+**Key Insight:** Amp already has the perfect architecture for this via MCP servers. Rather than building custom servers, we leverage the thriving ecosystem of existing MCP servers at [mcpservers.org](https://mcpservers.org/). Users can extend Amp by installing and configuring proven MCP servers without touching Amp's source code.
 
-  
+**Strategic Approach:**
+1. **Use existing MCP servers** as the primary solution
+2. **Build integration tools** to simplify discovery and setup
+3. **Only create custom servers** for gaps not covered by existing ecosystem
+4. **Focus on user experience** rather than server development
 
-## Phase 1: MCP Server Library Development
+**Ecosystem Contingency Plan:**
+Given that the MCP ecosystem is still emerging, AmpGI will deliver immediate value through a set of first-party reference servers that provide core functionality:
+- **Essential First-Party Servers**: Email, Calendar, Filesystem, Git, Fetch, REST API, Database
+- **Quality Assurance**: All servers undergo security review and compatibility testing
+- **Migration Strategy**: As third-party alternatives mature, users can seamlessly transition while maintaining functionality
+
+## Phase 1: MCP Server Integration & Discovery
 
   
 
@@ -81,217 +92,111 @@ S --> E
 
   
 
+**Available MCP Servers:**
+
+- **Gmail Integration**: Multiple Gmail MCP servers available on mcpservers.org
+- **Google Calendar**: Existing calendar management servers
+- **Slack**: Official Slack MCP servers for messaging automation
+- **Microsoft Teams**: Team collaboration servers
+- **Communication**: Various messaging and email servers
+
 **Example Configuration:**
 
 ```json
-
 {
-
-"gmail": {
-
-"command": "npx",
-
-"args": ["ampgi-email-mcp", "--provider=gmail"],
-
-"env": { "GMAIL_CREDENTIALS": "path/to/oauth.json" }
-
+  "gmail": {
+    "command": "npx",
+    "args": ["@modelcontextprotocol/server-gmail"],
+    "env": { "GMAIL_CREDENTIALS": "path/to/oauth.json" }
+  },
+  "slack": {
+    "command": "npx", 
+    "args": ["@modelcontextprotocol/server-slack"],
+    "env": { "SLACK_BOT_TOKEN": "xoxb-your-token" }
+  }
 }
-
-}
-
 ```
 
-  
-
-**Planned MCP Servers:**
-
-- **ampgi-email-mcp**: Gmail, Outlook, IMAP/SMTP integration
-
-- Send/receive emails
-
-- Email organization and filtering
-
-- Attachment handling
-
-- Template management
-
-  
-
-- **ampgi-calendar-mcp**: Google Calendar, Outlook Calendar, CalDAV
-
-- Event scheduling and management
-
-- Meeting coordination
-
-- Availability checking
-
-- Reminder automation
-
-  
-
-- **ampgi-messaging-mcp**: Slack, Teams, Discord automation
-
-- Message sending and monitoring
-
-- Channel management
-
-- Bot interactions
-
-- Status updates
-
-  
-
-- **ampgi-video-mcp**: Zoom, Meet scheduling and management
-
-- Meeting creation and invites
-
-- Recording management
-
-- Participant coordination
+**Key Capabilities:**
+- Send/receive emails across providers
+- Calendar scheduling and management  
+- Team messaging and notifications
+- Meeting coordination and invites
+- Cross-platform communication
 
   
 
 ### Document & File Management
 
-  
+**Available MCP Servers:**
+
+- **Filesystem**: Official MCP filesystem server for file operations
+- **Google Drive**: Cloud storage integration servers
+- **Dropbox**: File synchronization and sharing servers  
+- **Box**: Enterprise document management servers
+- **PDF Processing**: Document conversion and analysis servers
 
 **Example Configuration:**
 
 ```json
-
 {
-
-"documents": {
-
-"command": "npx",
-
-"args": ["ampgi-docs-mcp"],
-
-"env": {
-
-"GOOGLE_DRIVE_CREDS": "...",
-
-"DROPBOX_TOKEN": "..."
-
+  "filesystem": {
+    "command": "npx",
+    "args": ["@modelcontextprotocol/server-filesystem", "--allowed-directory", "/Users/username/Documents"]
+  },
+  "gdrive": {
+    "command": "npx",
+    "args": ["@modelcontextprotocol/server-gdrive"],
+    "env": { "GOOGLE_DRIVE_CREDENTIALS": "~/.config/gdrive-oauth.json" }
+  }
 }
-
-}
-
-}
-
 ```
 
-  
-
-**Planned MCP Servers:**
-
-- **ampgi-docs-mcp**: PDF, Word, Excel processing
-
-- Document creation and editing
-
-- Format conversion
-
-- Content extraction and analysis
-
-- Template application
-
-  
-
-- **ampgi-cloud-mcp**: Google Drive, Dropbox, OneDrive
-
-- File synchronization
-
-- Sharing and permissions
-
-- Backup automation
-
-- Storage optimization
-
-  
-
-- **ampgi-convert-mcp**: Format conversion, OCR, compression
-
-- Image/document conversion
-
-- Text extraction from images
-
-- File compression and archiving
-
-- Batch processing
+**Key Capabilities:**
+- Secure file system operations
+- Cloud storage synchronization
+- Document format conversion
+- PDF processing and analysis
+- Cross-platform file sharing
 
   
 
 ### System & Automation Tools
 
-  
+**Available MCP Servers:**
+
+- **Database Operations**: ClickHouse, Couchbase, and SQL database servers
+- **API Integration**: REST/GraphQL interaction servers
+- **Git Operations**: Official MCP Git server for version control
+- **Web Scraping**: Firecrawl, Browserbase, and data extraction servers
+- **Cloud Platforms**: AWS, Azure, GCP integration servers
 
 **Example Configuration:**
 
 ```json
-
 {
-
-"automation": {
-
-"command": "npx",
-
-"args": ["ampgi-automation-mcp", "--safe-mode"]
-
+  "git": {
+    "command": "npx",
+    "args": ["@modelcontextprotocol/server-git", "--repository", "/path/to/repo"]
+  },
+  "database": {
+    "command": "npx", 
+    "args": ["@modelcontextprotocol/server-clickhouse"],
+    "env": { "CLICKHOUSE_URL": "http://localhost:8123" }
+  },
+  "fetch": {
+    "command": "npx",
+    "args": ["@modelcontextprotocol/server-fetch"]
+  }
 }
-
-}
-
 ```
 
-  
-
-**Planned MCP Servers:**
-
-- **ampgi-database-mcp**: SQL/NoSQL database operations
-
-- Query execution and optimization
-
-- Schema management
-
-- Data migration and backup
-
-- Performance monitoring
-
-  
-
-- **ampgi-api-mcp**: REST/GraphQL API interactions
-
-- API discovery and testing
-
-- Automated integration setup
-
-- Response parsing and transformation
-
-- Rate limiting and error handling
-
-  
-
-- **ampgi-automation-mcp**: Workflow and task automation
-
-- Trigger-based actions
-
-- Cross-platform integrations
-
-- Scheduled task execution
-
-- Error recovery and retries
-
-  
-
-- **ampgi-monitor-mcp**: System monitoring and alerts
-
-- Health checks and uptime monitoring
-
-- Performance metric collection
-
-- Alert configuration and delivery
-
-- Log analysis and reporting
+**Key Capabilities:**
+- Database query execution and management
+- API discovery and integration
+- Version control operations
+- Web content extraction
+- Cloud service automation
 
   
 
@@ -375,9 +280,18 @@ ampgi-setup apply ~/.ampgi-config.json
 
 3. **Select capabilities** from curated list or custom
 
-4. **Authenticate services** through guided OAuth flows
+4. **Authenticate services** through guided OAuth flows with credential auto-detection
 
-5. **Test functionality** with example tasks
+5. **Configure security** with Safe Mode toggle and permission tiers
+
+6. **Test functionality** with dry-run mode and example tasks
+
+**Enhanced Onboarding Features:**
+- **Credential Auto-Detection**: Automatically detects existing credentials (AWS, GitHub, etc.)
+- **Dry-Run Mode**: Shows exact commands that will be executed before running them
+- **Safe Mode**: Disables high-privilege servers (filesystem, shell) for new users
+- **Rollback Support**: One-click undo for failed configurations
+- **Permission Tiers**: Clear explanation of Low/Medium/High privilege levels
 
   
 
@@ -431,6 +345,16 @@ Amp: [uses content MCP + scheduling MCP + social media MCP]
 
 ```
 
+**Multi-Server Orchestration:**
+
+```
+
+User: "Scrape competitor pricing data, analyze trends, and email the report to my team"
+
+Amp: [uses web scraping MCP → database MCP → analysis MCP → email MCP]
+
+```
+
   
 
 ## Implementation Roadmap
@@ -439,67 +363,123 @@ Amp: [uses content MCP + scheduling MCP + social media MCP]
 
 ### Week 1-2: Proof of Concept
 
-- [ ] Build **ampgi-email-mcp** server with basic Gmail integration
-
-- [ ] Create simple installer script
-
+- [ ] Test existing MCP servers with Amp (Gmail, filesystem, Git)
+- [ ] Create simple installer script for MCP server discovery
 - [ ] Test with manual VS Code configuration
-
 - [ ] Document basic setup process
 
-  
+### Month 1: Core Integration Platform
 
-### Month 1: Core MCP Servers
+- [ ] Build static MCP server registry (JSON-based)
+- [ ] Create PoC authentication flows (OAuth helper library)
+- [ ] Develop basic capability resolution system
+- [ ] Create minimal documentation site with server catalog
 
-- [ ] Complete email, calendar, and document MCP servers
-
-- [ ] Build configuration wizard
-
-- [ ] Create documentation site and setup guides
-
-- [ ] Implement basic authentication flows
-
-  
-
-### Month 2: User Experience
+### Month 2: User Experience & Context
 
 - [ ] Develop AmpGI installer CLI tool
+- [ ] Implement shared context store for cross-server workflows
+- [ ] Build pre-configured templates using existing servers
+- [ ] Add configuration validation and basic testing
+- [ ] Create resource governance system (CPU/memory limits)
 
-- [ ] Create VS Code companion extension
+### Month 3: Advanced Registry & VS Code Extension
 
-- [ ] Build pre-configured templates for common use cases
+- [ ] Build dynamic server registry with community submissions
+- [ ] Develop VS Code companion extension (beta)
+- [ ] Implement MCP compatibility testing framework
+- [ ] Add security tier system and permission management
 
-- [ ] Add configuration validation and testing
+### Month 4: Ecosystem Enhancement
 
-  
-
-### Month 3: Ecosystem Growth
-
-- [ ] Release MCP server development kit
-
+- [ ] Identify gaps in existing MCP server ecosystem
+- [ ] Build missing critical first-party servers
 - [ ] Create community contribution guidelines
-
-- [ ] Build MCP server marketplace/registry
-
-- [ ] Establish security review process
+- [ ] Launch VS Code extension (GA)
+- [ ] Establish automated compatibility testing pipeline
 
   
 
-### Month 4+: Advanced Capabilities
+### Month 5+: Advanced Capabilities
 
-- [ ] Context persistence across MCP servers
-
-- [ ] Cross-server workflows and automation
-
-- [ ] Advanced security and permission management
+- [ ] Cross-server workflow automation (YAML DSL)
 
 - [ ] Analytics and usage insights
 
 - [ ] Enterprise features and deployment options
 
+- [ ] Advanced monitoring and health checks
+
+- [ ] Performance optimization and caching
+
   
 
 ## Technical Architecture
+
+### Server Orchestration & Capability Registry
+
+**Capability Resolution System:**
+```typescript
+interface CapabilityRegistry {
+  intent: string // e.g., "send_email", "read_calendar", "analyze_data"
+  servers: ServerCapability[]
+  defaultServer?: string
+  fallbackChain?: string[]
+}
+
+interface ServerCapability {
+  serverId: string
+  priority: number
+  constraints?: Record<string, any>
+  confidence: number
+}
+```
+
+**Orchestration Logic:**
+1. **Intent Recognition**: Parse user requests to identify required capabilities
+2. **Server Selection**: Use capability registry to select appropriate servers
+3. **Conflict Resolution**: When multiple servers can handle the same intent, use priority scoring
+4. **Fallback Handling**: Automatic failover to backup servers on errors
+5. **Context Sharing**: Maintain shared context store for cross-server workflows
+
+**Multi-Server Coordination:**
+- **Workflow DSL**: YAML-based task chaining for complex operations
+- **Shared Memory**: Redis-based context persistence across server interactions
+- **Event Bus**: Publish/subscribe system for server-to-server communication
+
+**Resource Governance:**
+- **Supervisor Process**: Manages server lifecycle, restarts, and health monitoring
+- **Resource Limits**: Configurable CPU, memory, and disk quotas per server
+- **Concurrency Control**: Maximum parallel server execution limits
+- **Performance Metrics**: Real-time monitoring with user-visible resource usage
+- **Automatic Cleanup**: Orphaned process detection and cleanup
+
+**MCP Compatibility Testing Framework:**
+```typescript
+interface CompatibilityTest {
+  serverId: string
+  testSuite: TestCase[]
+  requirements: {
+    minAmpVersion: string
+    platforms: string[]
+    dependencies: string[]
+  }
+}
+
+interface TestCase {
+  name: string
+  input: any
+  expectedOutput: any
+  timeout: number
+  retries: number
+}
+```
+
+**Testing Pipeline:**
+- **Pre-Publication**: Automated testing before server registry inclusion
+- **Continuous Integration**: Regular compatibility testing against Amp versions
+- **Community Testing**: Crowdsourced testing reports and feedback
+- **Regression Detection**: Automated alerts for breaking changes
 
   
 
@@ -508,33 +488,33 @@ Amp: [uses content MCP + scheduling MCP + social media MCP]
 ```typescript
 
 interface AmpGIMCPServer {
-
-name: string
-
-description: string
-
-capabilities: string[]
-
-requirements: {
-
-auth?: 'oauth' | 'api-key' | 'none'
-
-dependencies?: string[]
-
-permissions?: string[]
-
-}
-
-installation: {
-
-command: string
-
-args: string[]
-
-env?: Record<string, string>
-
-}
-
+  name: string
+  description: string
+  capabilities: string[]
+  version: string
+  compatibilityMatrix: {
+    minAmpVersion: string
+    platforms: string[]
+    nodeVersion?: string
+  }
+  requirements: {
+    auth?: 'oauth' | 'api-key' | 'none'
+    dependencies?: string[]
+    permissions?: string[]
+  }
+  installation: {
+    command: string
+    args: string[]
+    env?: Record<string, string>
+  }
+  metadata: {
+    license: string
+    author: string
+    homepage?: string
+    repository?: string
+    checksum: string
+    signature?: string
+  }
 }
 
 ```
@@ -555,13 +535,29 @@ env?: Record<string, string>
 
 ### Safety & Security
 
-- **Sandboxed execution** of MCP servers
+**Sandboxed Execution Architecture:**
+- **Process Isolation**: Each MCP server runs in a separate OS process with restricted privileges
+- **Network Restrictions**: Configurable egress filtering (whitelist domains, block local network)
+- **File System Boundaries**: Strict directory access controls via chroot-like mechanisms
+- **Resource Limits**: CPU, memory, and disk quotas to prevent resource exhaustion
+- **Container Option**: Docker-based isolation for high-security environments
 
-- **Permission-based access** to sensitive operations
+**Security Tiers:**
+- **Low Privilege**: Read-only access, no network, no file system writes
+- **Medium Privilege**: Limited network access, restricted file system writes
+- **High Privilege**: Full capabilities with explicit user consent required
 
-- **Audit logging** of all MCP server actions
+**Permission System:**
+- **Granular Scopes**: Fine-grained permissions (e.g., `email:read`, `calendar:write`, `filesystem:/Documents`)
+- **Runtime Consent**: Dynamic permission escalation with user approval
+- **Audit Trail**: Complete logging of all server actions with tamper-proof storage
+- **Revocation**: Instant permission withdrawal with immediate effect
 
-- **User consent flows** for high-privilege operations
+**Credential Management:**
+- **OS Keychain Integration**: Platform-native secure storage (Keychain, Credential Manager, libsecret)
+- **Encrypted Vault**: Local encrypted credential store with master password
+- **Zero-Knowledge**: Credentials never stored in plain text or transmitted unencrypted
+- **Rotation Support**: Automatic token refresh and credential rotation
 
   
 
@@ -572,65 +568,37 @@ env?: Record<string, string>
 ### Full AmpGI Setup
 
 ```json
-
 {
-
-"amp.mcpServers": {
-
-"gmail": {
-
-"command": "npx",
-
-"args": ["ampgi-email-mcp", "--provider=gmail"],
-
-"env": { "GMAIL_CREDENTIALS": "~/.ampgi/gmail-oauth.json" }
-
-},
-
-"gcal": {
-
-"command": "npx",
-
-"args": ["ampgi-calendar-mcp", "--provider=google"],
-
-"env": { "GOOGLE_CALENDAR_CREDS": "~/.ampgi/gcal-oauth.json" }
-
-},
-
-"gdrive": {
-
-"command": "npx",
-
-"args": ["ampgi-cloud-mcp", "--provider=gdrive"],
-
-"env": { "GOOGLE_DRIVE_CREDS": "~/.ampgi/gdrive-oauth.json" }
-
-},
-
-"slack": {
-
-"command": "npx",
-
-"args": ["ampgi-messaging-mcp", "--provider=slack"],
-
-"env": { "SLACK_BOT_TOKEN": "~/.ampgi/slack-token" }
-
-},
-
-"automation": {
-
-"command": "npx",
-
-"args": ["ampgi-automation-mcp", "--safe-mode"],
-
-"env": { "AMPGI_WORKSPACE": "~/.ampgi/workspace" }
-
+  "amp.mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem", "--allowed-directory", "/Users/username/Documents"]
+    },
+    "git": {
+      "command": "npx", 
+      "args": ["@modelcontextprotocol/server-git", "--repository", "/Users/username/projects"]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-fetch"]
+    },
+    "gmail": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-gmail"],
+      "env": { "GMAIL_CREDENTIALS": "~/.ampgi/gmail-oauth.json" }
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-slack"], 
+      "env": { "SLACK_BOT_TOKEN": "~/.ampgi/slack-token" }
+    },
+    "clickhouse": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-clickhouse"],
+      "env": { "CLICKHOUSE_URL": "http://localhost:8123" }
+    }
+  }
 }
-
-}
-
-}
-
 ```
 
   
@@ -648,6 +616,10 @@ env?: Record<string, string>
 - User retention and engagement metrics
 
 - Community contributions to MCP ecosystem
+
+- Mean time to first successful task completion
+
+- Crash-free session rate
 
   
 
