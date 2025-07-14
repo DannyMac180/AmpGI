@@ -1,0 +1,16 @@
+{
+  "amp.mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem", "/Users/username/projects"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory"]
+    },
+    "everything": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-everything"]
+    }
+  }
+}

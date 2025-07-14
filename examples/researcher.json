@@ -1,0 +1,20 @@
+{
+  "amp.mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem", "/Users/username/Documents"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory"]
+    },
+    "crawler": {
+      "command": "npx",
+      "args": ["mcp-smart-crawler"]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": ["@hisma/server-puppeteer"]
+    }
+  }
+}

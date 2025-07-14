@@ -1,0 +1,16 @@
+{
+  "amp.mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory"]
+    },
+    "sequential": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem", "/Users/username/Documents"]
+    }
+  }
+}
