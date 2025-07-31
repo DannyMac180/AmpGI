@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { getServerConfig } from '../registry.js';
 import { detectAmpInstallation, getCurrentAmpConfig } from '../utils/amp.js';
-import { testMCPServerConnection } from '../utils/mcp.js';
+import { testMCPServerConnection, verifyMCPServer } from '../utils/mcp.js';
 
 export async function testMCPServers(options) {
   console.log(chalk.blue('🔍 Testing MCP Server Connections'));
@@ -79,6 +79,18 @@ export async function testMCPServers(options) {
           args: mcpServers[serverId].args,
           env: mcpServers[serverId].env
         };
+      }
+      
+      // First verify package installation if applicable
+      if (serverConfig.package) {
+        const verifyResult = await verifyMCPServer(serverConfig);
+        if (!verifyResult.success) {
+          testSpinner.fail(`${serverConfig.name || serverId} - Package verification failed`);
+          console.log(chalk.red(`    Package Error: ${verifyResult.error}`));
+          results.failed++;
+          console.log(); // Empty line for spacing
+          continue;
+        }
       }
       
       const testResult = await testMCPServerConnection(serverConfig, mcpServers[serverId]);

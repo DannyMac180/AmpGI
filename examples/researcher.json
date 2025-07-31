@@ -2,19 +2,33 @@
   "amp.mcpServers": {
     "filesystem": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-filesystem", "/Users/username/Documents"]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/username/research"]
     },
     "memory": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-memory"]
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
-    "crawler": {
+    "brave_search": {
       "command": "npx",
-      "args": ["mcp-smart-crawler"]
+      "args": ["-y", "mcp-server-brave-search"],
+      "env": {
+        "BRAVE_SEARCH_API_KEY": "your_brave_api_key"
+      }
     },
-    "puppeteer": {
+    "browserbase": {
       "command": "npx",
-      "args": ["@hisma/server-puppeteer"]
+      "args": ["-y", "@browserbase/mcp-server-browserbase"],
+      "env": {
+        "BROWSERBASE_API_KEY": "your_browserbase_api_key",
+        "BROWSERBASE_PROJECT_ID": "your_project_id"
+      }
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_API_KEY": "your_notion_integration_token"
+      }
     }
   }
 }

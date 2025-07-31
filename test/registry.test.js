@@ -45,7 +45,9 @@ test('listServers returns all available servers', () => {
   assert.ok(servers.length > 0);
   assert.ok(servers.some(s => s.id === 'filesystem'));
   assert.ok(servers.some(s => s.id === 'memory'));
-  assert.ok(servers.some(s => s.id === 'puppeteer'));
+  assert.ok(servers.some(s => s.id === 'git'));
+  assert.ok(servers.some(s => s.id === 'sqlite'));
+  assert.ok(servers.some(s => s.id === 'notion'));
 });
 
 test('listProfiles returns all available profiles', () => {
@@ -57,8 +59,8 @@ test('listProfiles returns all available profiles', () => {
   assert.ok(profiles.some(p => p.id === 'researcher'));
 });
 
-test('generateAmpConfig creates valid Amp configuration', () => {
-  const config = generateAmpConfig(['filesystem', 'memory']);
+test('generateAmpConfig creates valid Amp configuration', async () => {
+  const config = await generateAmpConfig(['filesystem', 'memory']);
   
   assert.ok(config['amp.mcpServers']);
   assert.ok(config['amp.mcpServers']['filesystem']);
