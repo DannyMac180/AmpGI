@@ -126,7 +126,9 @@ export async function installProfile(options) {
   
   // Validate installation permissions
   console.log(chalk.blue('\n🔍 Validating permissions...'));
-  const permissionValidation = await validateInstallationPermissions(serverIds);
+  const permissionValidation = await validateInstallationPermissions(serverIds, { 
+    isProfile: !!options.profile 
+  });
   
   const allowedServers = [];
   const blockedServers = [];
@@ -141,6 +143,14 @@ export async function installProfile(options) {
   
   // Show what will be installed
   console.log(chalk.blue('\n📋 Installation Plan:'));
+  
+  // Show profile installation message if applicable
+  if (options.profile && allowedServers.length === serverIds.length) {
+    const profileConfig = getProfileConfig(options.profile);
+    console.log(chalk.green(`  ✓ All ${serverIds.length} servers from ${profileConfig.name} profile approved`));
+    console.log(chalk.gray(`    Profile installations include all curated servers`));
+  }
+  
   for (const serverId of allowedServers) {
     const server = getServerConfig(serverId);
     const permissionTier = server.permissionTier || PERMISSION_TIERS.MEDIUM;

@@ -252,9 +252,10 @@ export async function getEffectivePermissionTier(serverId, defaultTier) {
 /**
  * Validate server installation permissions
  */
-export async function validateInstallationPermissions(serverIds) {
+export async function validateInstallationPermissions(serverIds, options = {}) {
   const safeMode = await isSafeModeEnabled();
   const results = [];
+  const isProfileInstallation = options.isProfile || false;
   
   for (const serverId of serverIds) {
     const serverConfig = getServerConfig(serverId);
@@ -267,6 +268,19 @@ export async function validateInstallationPermissions(serverIds) {
       continue;
     }
     
+    // For profile installations, allow all servers (profiles are curated and trusted)
+    if (isProfileInstallation) {
+      results.push({
+        serverId,
+        serverName: serverConfig.name,
+        allowed: true,
+        permissionTier: serverConfig.permissionTier || PERMISSION_TIERS.MEDIUM,
+        profileInstallation: true
+      });
+      continue;
+    }
+    
+    // For individual server installations, check safe mode
     const safeModeCheck = await isServerBlockedByQuarantinemode(serverId);
     if (safeModeCheck.blocked) {
       results.push({
