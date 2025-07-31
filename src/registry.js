@@ -117,6 +117,23 @@ export const MCP_SERVERS = {
     }
   },
 
+  exa_search: {
+    name: 'Exa Search',
+    description: 'Advanced web search and content extraction using Exa Search API',
+    capabilities: ['search:web', 'search:semantic', 'search:similarity', 'content:extract'],
+    package: 'exa-mcp-server',
+    command: 'npx',
+    args: ['-y', 'exa-mcp-server'],
+    category: 'web',
+    auth: 'api_key',
+    permissions: ['low'],
+    documentation: 'https://github.com/exa-labs/exa-mcp-server',
+    verified: true,
+    env: {
+      EXA_API_KEY: 'your_exa_api_key'
+    }
+  },
+
   // Notion Integration - PRODUCTION READY
   notion: {
     name: 'Notion',
@@ -132,6 +149,26 @@ export const MCP_SERVERS = {
     verified: true,
     env: {
       NOTION_API_KEY: 'your_notion_integration_token'
+    }
+  },
+
+  // Obsidian Integration - PRODUCTION READY
+  obsidian: {
+    name: 'Obsidian',
+    description: 'Obsidian vault integration for knowledge management',
+    capabilities: ['note:read', 'note:write', 'note:search', 'vault:manage'],
+    package: 'mcp-obsidian',
+    command: 'uvx',
+    args: ['mcp-obsidian'],
+    category: 'productivity',
+    auth: 'api_key',
+    permissions: ['high'],
+    documentation: 'https://github.com/MarkusPfundstein/mcp-obsidian',
+    verified: true,
+    env: {
+      OBSIDIAN_API_KEY: 'your_obsidian_rest_api_key',
+      OBSIDIAN_HOST: '127.0.0.1',
+      OBSIDIAN_PORT: '27124'
     }
   },
 
@@ -198,10 +235,10 @@ export const PROFILES = {
   researcher: {
     name: 'Research Assistant',
     description: 'Web research, data collection, and knowledge management',
-    servers: ['filesystem', 'memory', 'brave_search', 'notion'],
+    servers: ['filesystem', 'memory', 'exa_search', 'obsidian'],
     features: [
-      'Web search and content extraction',
-      'Knowledge storage in Notion',
+      'Advanced web search with Exa',
+      'Knowledge management with Obsidian',
       'Persistent research memory',
       'Document analysis and organization'
     ]

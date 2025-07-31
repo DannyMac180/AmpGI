@@ -1,6 +1,6 @@
 {
   "name": "ampgi",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "Transform Amp into a general-purpose agent through end-user extensibility using MCP servers",
   "main": "src/index.js",
   "type": "module",
