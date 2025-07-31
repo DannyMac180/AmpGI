@@ -17,7 +17,7 @@ const program = new Command();
 program
   .name('ampgi')
   .description('Transform Amp into a general-purpose agent through MCP servers')
-  .version('0.1.0');
+  .version('1.0.1');
 
 program
   .command('install')

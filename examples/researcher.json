@@ -8,11 +8,11 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
-    "brave_search": {
+    "exa_search": {
       "command": "npx",
-      "args": ["-y", "mcp-server-brave-search"],
+      "args": ["-y", "exa-mcp-server"],
       "env": {
-        "BRAVE_SEARCH_API_KEY": "your_brave_api_key"
+        "EXA_API_KEY": "your_exa_api_key"
       }
     },
     "browserbase": {
@@ -23,11 +23,13 @@
         "BROWSERBASE_PROJECT_ID": "your_project_id"
       }
     },
-    "notion": {
-      "command": "npx",
-      "args": ["-y", "@notionhq/notion-mcp-server"],
+    "obsidian": {
+      "command": "uvx",
+      "args": ["mcp-obsidian"],
       "env": {
-        "NOTION_API_KEY": "your_notion_integration_token"
+        "OBSIDIAN_API_KEY": "your_obsidian_rest_api_key",
+        "OBSIDIAN_HOST": "127.0.0.1",
+        "OBSIDIAN_PORT": "27124"
       }
     }
   }
