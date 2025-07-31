@@ -2,15 +2,19 @@
   "amp.mcpServers": {
     "memory": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-memory"]
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
     "sequential": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-sequential-thinking"]
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "filesystem": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-filesystem", "/Users/username/Documents"]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/username/thinking"]
+    },
+    "time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"]
     }
   }
 }

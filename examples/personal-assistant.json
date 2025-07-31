@@ -2,15 +2,22 @@
   "amp.mcpServers": {
     "filesystem": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-filesystem", "/Users/username/Documents"]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/username/Documents"]
     },
     "memory": {
       "command": "npx",
-      "args": ["@modelcontextprotocol/server-memory"]
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
-    "puppeteer": {
+    "notion": {
       "command": "npx",
-      "args": ["@hisma/server-puppeteer"]
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_API_KEY": "your_notion_integration_token"
+      }
+    },
+    "time": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"]
     }
   }
 }
